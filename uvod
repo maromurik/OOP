@@ -1,0 +1,36 @@
+#paradigma = sposob pisania kodu, 3 paradigmy
+#1. proceduralne, 2. funkcionalne, 3. Objektovo orientovane (napr python)
+# vlastnosti OOP: zapuzdrenost, polymorfizmus, pretazenie operatorov, dedenie, skladanie
+# data+funkcie = objekty
+# veda spajania objektov = design patterns
+# data = vlastnosti objektu, funkcie = metody
+from errno import ENAMETOOLONG
+from typing import get_overloads
+
+
+class Dog:
+    def __init__(self,name,age): #--------> KONšTRUKTOR
+        self.name = name
+        self.age = age
+    def sound(self):
+        print(f"{self.name}: HAF")
+    #SETTER
+    def setName(self,name):
+        self.name = name
+    #GETTER
+    def getName(self,name):
+        return self.name
+
+
+
+pes1 = Dog("Azor",10) # tu sa vola konstruktor, ked sa objekt vytvara
+pes2 = Dog("Max",2)   # tu sa vola konstruktor, ked sa objekt vytvara
+pes1.sound()
+pes2.sound()
+
+
+
+
+
+
+
