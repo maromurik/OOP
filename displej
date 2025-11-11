@@ -1,7 +1,7 @@
 import tkinter as tk
 import datetime
 root = tk.Tk()
-canvas = tk.Canvas(root,width=1200,height=600)
+canvas = tk.Canvas(root,width=1200,height=350,bg= "white")
 canvas.pack()
 
 
@@ -83,7 +83,7 @@ class Cislica:
             self.parts[6].off()
 
 class Display:
-    def __init__(self,x,y,vs,ms,farba,offset,canvas):
+    def __init__(self,x,y,vs,ms,farba,offset,canvas,colon_on):
         self.offset = offset
         self.x = x
         self.y = y
@@ -91,6 +91,7 @@ class Display:
         self.ms = ms
         self.farba = farba
         self.canvas = canvas
+        self.colon_on = colon_on
         self.cislice = []
         self.cislice.append(Cislica(x,y,vs,ms,farba,self.canvas))
         self.cislice.append(Cislica(x+offset, y, vs, ms, farba, self.canvas))
@@ -101,6 +102,19 @@ class Display:
         for cislo in self.cislice:
             cislo.kresli()
 
+    def toggle_colon(self):
+        self.colon_on = not self.colon_on
+
+
+        if self.colon_on:
+            canvas.itemconfig(self.id, fill=self.farba,outline = "black",width = 4)
+            canvas.itemconfig(self.id1, fill=self.farba,outline = "black",width = 4)
+        else:
+            canvas.itemconfig(self.id, fill="white",outline = "white")
+            canvas.itemconfig(self.id1, fill="white",outline = "white")
+
+
+        canvas.after(800, self.toggle_colon)
     def do(self):
         hodiny = datetime.datetime.now().hour
         minuty = datetime.datetime.now().minute
@@ -112,20 +126,22 @@ class Display:
         self.cislice[4].zobraz(sekundy//10)
         self.cislice[5].zobraz(sekundy%10)
         canvas.after(1000,self.do)
+    def dvojbodka(self):
+        self.id = self.canvas.create_oval(self.x+2.3*self.offset,self.y+3*self.ms,self.x+2.5*self.offset,self.y+5*self.ms,fill=self.farba,outline="black",width=4)
+        self.id1 = self.canvas.create_oval(self.x+2.3*self.offset,self.y+8*self.ms,self.x+2.5*self.offset,self.y+10*self.ms,fill = self.farba,outline="black",width=4)
 
-
-display = Display(50,50,100,20,"maroon1",180,canvas)
+display = Display(50,50,100,20,"maroon1",180,canvas,True)
 #s1 = Cislica(100,100,100,20,"blue")
 #s1.kresli()
 #s1.zobraz(9)
 display.do()
-
-
-display1 = Display(50,325,100,20,"green2",180,canvas)
+display.dvojbodka()
+display.toggle_colon()
+#display1 = Display(50,325,100,20,"green2",180,canvas)
 #s1 = Cislica(100,100,100,20,"blue")
 #s1.kresli()
 #s1.zobraz(9)
-display1.do()
+#display1.do()
 
 
 root.mainloop()
