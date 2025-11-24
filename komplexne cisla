@@ -29,7 +29,7 @@ class Komplex:
 
 
 
-k1 = Komplex(5, 5)
-k2 = Komplex(5, 5)
+k1 = Komplex(5, 6)
+k2 = Komplex(7, 8)
 
 print(k1 / k2)
