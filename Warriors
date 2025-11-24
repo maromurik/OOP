@@ -1,0 +1,36 @@
+class Warrior:
+    def __init__(self, health=50, attack=5):
+        self.health = health
+        self.attack = attack
+        self.is_alive = True
+
+    def hit(self, other):
+        other.health -= self.attack
+        if other.health <= 0:
+            other.is_alive = False
+
+    def __str__(self):  # debug
+        return f"Zdravie: {self.health}, Útok: {self.attack}, Žijem? {self.is_alive}"
+
+
+class Knight(Warrior):
+    def __init__(self, attack=7):
+        super().__init__(50, attack)
+
+
+def fight(w1, w2):
+    while w1.is_alive and w2.is_alive:
+
+        w1.hit(w2)
+        if not w2.is_alive:
+            return True
+
+        w2.hit(w1)
+        if not w1.is_alive:
+            return False
+
+
+p1 = Warrior()
+p2 = Knight()
+
+print(fight(p1, p2))
