@@ -1,0 +1,47 @@
+#LIFO = last in first out  (dat struktura STACK)
+#FIFO = first in first out (dat struktura QUEUE)
+
+class Stack:
+    def __init__(self,zoz):
+        self.zoz = []
+
+    def is_empty(self):
+        if len(self.zoz) == 0:
+            return True
+        else:
+            return False
+
+    def push(self,item):
+        self.zoz.append(item)
+
+    def pop(self):
+        if not self.is_empty():
+            return self.zoz.pop(-1)
+        else:
+            return False
+
+    def peek(self):
+        if not self.is_empty():
+            return self.zoz[-1]
+        else:
+            return False
+
+    def size(self):
+        return len(self.zoz)
+
+
+hodnoty = {"+":1,"-":1,"*":2,"/":2,"(":0,")":0}
+
+op_stack = Stack([])
+output = list()
+
+
+expression = input("Zadaj ciselny vyraz:")
+for char in expression:
+    if char.isdigit():
+        output.append(int(char))
+    elif char == "(":
+        op_stack.push(char)
+    elif char == (")"):
+        
+print(output)
