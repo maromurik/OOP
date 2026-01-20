@@ -1,8 +1,11 @@
 #LIFO = last in first out  (dat struktura STACK)
 #FIFO = first in first out (dat struktura QUEUE)
 
+#LIFO = last in first out  (dat struktura STACK)
+#FIFO = first in first out (dat struktura QUEUE)
+
 class Stack:
-    def __init__(self,zoz):
+    def __init__(self):
         self.zoz = []
 
     def is_empty(self):
@@ -32,16 +35,44 @@ class Stack:
 
 hodnoty = {"+":1,"-":1,"*":2,"/":2,"(":0,")":0}
 
-op_stack = Stack([])
+op_stack = Stack()
 output = list()
 
 
 expression = input("Zadaj ciselny vyraz:")
 for char in expression:
     if char.isdigit():
-        output.append(int(char))
+        output.append(char)
     elif char == "(":
         op_stack.push(char)
     elif char == (")"):
-        
+        while op_stack.peek() != "(":
+            output.append(op_stack.pop())
+        op_stack.pop()
+    elif char in "+-/*":
+            while (not op_stack.is_empty()) and hodnoty[char] <= hodnoty[op_stack.peek()]:
+                output.append(op_stack.pop())
+            op_stack.push(char)
+
+while op_stack.size() != 0:
+    output.append(op_stack.pop())
+
+
+
 print(output)
+operand_stack = Stack()
+for char in output:
+    if char.isdigit():
+        operand_stack.push(int(char))
+    else:
+        second = operand_stack.pop()
+        first = operand_stack.pop()
+        if char == "+":
+            operand_stack.push(first+second)
+        elif char == "-":
+            operand_stack.push(first-second)
+        elif char == "*":
+            operand_stack.push(first*second)
+        elif char == "/":
+            operand_stack.push(first / second)
+print(operand_stack.zoz)
